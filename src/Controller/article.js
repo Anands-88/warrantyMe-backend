@@ -15,7 +15,7 @@ router.post("", async (req, res) => {
 
 })
 
-router.get("", cache("5 minutes"),async (req, res) => {
+router.get("", cache("15 minutes"),async (req, res) => {
     const page= req.query.page || 1
     const size = req.query.size || 5
     try {
@@ -31,7 +31,7 @@ router.get("", cache("5 minutes"),async (req, res) => {
 router.get("/search", async (req, res) => {
     const title = req.query.title || ""
     const author= req.query.author || ""
-    
+
     try {
         const article = await Art.find({"$or":[{"title":{$regex:title}},{"author":{$regex:author}}]})
         .lean().exec();
